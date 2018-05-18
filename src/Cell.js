@@ -11,7 +11,6 @@ export default class Cell extends Component {
     return (
       <div
         className={`cell ${this.props.className} ${this.props.alive ? 'cell--alive' : ''}`}>
-
       </div>
     )
   }
