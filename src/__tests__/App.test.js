@@ -10,7 +10,7 @@ it('renders without crashing', () => {
 });
 
 
-test('snapshot', () => {
+test('Compose Grid', () => {
   const component = renderer.create(
     <App />,
   );
