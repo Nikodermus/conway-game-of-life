@@ -1,18 +1,52 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import Cell from './Cell';
+
 import './App.css';
 
 class App extends Component {
+  state = {
+    grid: []
+  }
+
+  componentWillMount() {
+    this.addGrid(50, {
+      alive: false,
+      className: 'grid-elem',
+    });
+  }
+
+  addGrid = (num = 100, props = {}) => {
+    let { grid } = this.state;
+    for (let i = 0; i < num; i++) {
+      grid.push([]);
+      for (let j = 0; j < num; j++) {
+        grid[i].push(false);
+      }
+    }
+    this.setState({ grid });
+  }
+
+  renderGrid = () => {
+    return this.state.grid.map((elem, i) => {
+      return (
+        <div className="row" key={`row-${i}`}>
+          {elem.map((bool, j) => {
+            return (
+              <Cell
+                alive={bool}
+                key={`${i}-${j}`}
+                location={`${i}-${j}`} />)
+          })}
+        </div>
+      )
+    })
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="container">
+        {this.renderGrid()}
       </div>
     );
   }
