@@ -15,7 +15,6 @@ it('Prop change, changes cell', function () {
   expect(component.props.alive).toBe(true);
 
   ReactDOM.render(<Cell alive={false} />, node);
-  console.log(ReactDOM.findDOMNode(component));
   expect(component.props.alive).toBe(false);
   expect(ReactDOM.findDOMNode(component).className).toEqual('cell  ');
 });
