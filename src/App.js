@@ -7,21 +7,19 @@ import './App.css';
 class App extends Component {
   state = {
     grid: [],
-    generation: 0
+    generation: 0,
   }
 
   componentWillMount() {
-    this.addGrid(50, {
+    this.createGrid(50, {
       alive: false,
       className: 'grid-elem',
     });
   }
 
-  componentDidMount() {
-    this.setInitial()
-  }
+  createGrid = (num = 100, props = {}) => {
 
-  addGrid = (num = 100, props = {}) => {
+    // Fill grid with false rows and columns
     let { grid } = this.state;
     for (let i = 0; i < num; i++) {
       grid.push([]);
@@ -29,10 +27,29 @@ class App extends Component {
         grid[i].push(false);
       }
     }
+    // Add initial true cells
+    grid = this.setInitial(grid);
     this.setState({ grid });
+
+    // After a couple seconds, start evolving
+    setTimeout(() => {
+      this.checkGrid()
+    }, 10);
+  }
+
+  setInitial = (grid) => {
+
+    grid[0][0] = true;
+    grid[0][1] = true;
+    grid[1][0] = true;
+    grid[1][3] = true;
+    grid[2][1] = true;
+    grid[2][2] = true;
+    return grid;
   }
 
   renderGrid = () => {
+
     return this.state.grid.map((elem, i) => {
       return (
         <div className="row" key={`row-${i}`}>
@@ -45,74 +62,67 @@ class App extends Component {
           })}
         </div>
       )
-    })
-  }
-
-  setInitial = () => {
-    let { grid } = this.state;
-    grid[0][0] = true;
-    grid[0][1] = true;
-    grid[1][0] = true;
-    grid[1][3] = true;
-    grid[2][1] = true;
-    grid[2][2] = true;
-    this.setState({ grid });
-    this.checkGrid();
+    });
   }
 
   checkGrid = () => {
+
     let { grid, generation } = this.state;
     let alive_pop = 0;
+    let future_grid = [...grid];
     grid.map((row, i) => {
       row.map((elem, j) => {
         let { alive_n, dead_n } = this.checkNeighbors(i, j);
 
         // TODO: Wait for all info to be collected before making generation change
-        setTimeout(() => {
-          if (grid[i][j] && alive_n === 2 || alive_n === 3) {
-            grid[i][j] = true;
-          } else {
-            grid[i][j] = false;
-          }
-        }, 0)
+        if ((grid[i][j] && alive_n === 2) || alive_n === 3) {
+          future_grid[i][j] = true;
+        } else {
+          future_grid[i][j] = false;
+        }
+
       });
     });
 
     generation += 1;
-    this.setState({ grid, generation });
+
+    this.setState({
+      generation,
+      grid: future_grid
+    });
 
     // TODO: Set exit condition for no alive population
     if (generation < 50) {
       setTimeout(() => {
         this.checkGrid()
-      }, 2000);
+      }, 10);
     }
   }
 
   checkNeighbors = (i, j) => {
+
     let { grid } = this.state;
     let alive_n = 0;
     let dead_n = 0;
 
-    let move = [-1, 0, +1];
-
-    move.map(change_row => {
-      move.map(change_col => {
+    for (let row = i - 1; row <= i + 1; row++) {
+      for (let col = j - 1; col <= j + 1; col++) {
         if (
           // Inside the grid
-          i + change_row > 0 &&
-          i + change_row < grid.length - 1 &&
-          j + change_col > 0 &&
-          j + change_col < grid.length - 1 &&
-
+          row >= 0 &&
+          row < grid.length &&
+          col >= 0 &&
+          col < grid.length &&
           // Not count the point we are checking
-          (j + change_col !== j && i + change_row !== i)
+          (row !== j || col !== i)
         ) {
           // Sum dead and alive around
-          grid[i + change_row][j + change_col] ? alive_n += 1 : dead_n += 1;
+          grid[row][col] ? alive_n += 1 : dead_n += 1;
         }
-      });
-    });
+      }
+    }
+
+    // debugger
 
     return {
       alive_n,
