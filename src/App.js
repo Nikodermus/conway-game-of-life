@@ -85,6 +85,7 @@ class App extends Component {
     let { generation } = this.state;
     let future_grid = copyArray(grid);
     let alive_pop = 0;
+    let generation_alive = [];
 
     grid.map((row, i) => {
       row.map((col, j) => {
@@ -99,13 +100,16 @@ class App extends Component {
           future_grid[i][j] = false;
         }
 
-        grid[i][j] ? alive_pop += 1 : null;
+        if (grid[i][j]) {
+          alive_pop += 1;
+          generation_alive.push(i, j);
+        };
       });
     });
 
     // TODO: Compare that population has stabilized
-    // to use it as an exit condition
-    // const is_stable = this.compareGenerations(grid);
+    // with periocity up to 4
+    const is_stable = this.compareGenerations(generation_alive);
 
     generation += 1;
 
@@ -115,7 +119,11 @@ class App extends Component {
     });
 
     // TODO: Set exit condition for stable population
-    if (generation < 50 && alive_pop) {
+    if (
+      generation < 50 &&
+      alive_pop &&
+      !is_stable
+    ) {
       setTimeout(() => {
         this.checkGrid(future_grid)
       }, 1000);
@@ -125,12 +133,13 @@ class App extends Component {
 
   /**
   * Check for periocity or stable generations
-  * @param {array} grid - Grid that will be added to the stack
+  * @param {array} grid - Grid with alive only that will be added to the stack
   * @returns {boolean} - If the population has stabilized
   */
   compareGenerations = (grid) => {
     // WIP: Check stable and periocity
     let { generation_record } = this.state;
+
     if (generation_record.length >= 5) {
       generation_record.shift()
     }
@@ -139,7 +148,7 @@ class App extends Component {
     this.setState({ generation_record });
 
     if (generation_record.length > 1) {
-      return compareArray(generation_record[0], generation_record[generation_record.length])
+      return compareArray(generation_record[0], generation_record[generation_record.length - 1])
     }
     return false;
   }
@@ -176,10 +185,10 @@ class App extends Component {
 
 
     /**
-   * @typedef {Object} Neighbors
-   * @property {number} dead_n - Falsy neighbors
-   * @property {number} alive_n - Truthy neighbors
-   */
+     * @typedef {Object} Neighbors
+     * @property {number} dead_n - Falsy neighbors
+     * @property {number} alive_n - Truthy neighbors
+    */
     return { alive_n, dead_n }
   }
 
