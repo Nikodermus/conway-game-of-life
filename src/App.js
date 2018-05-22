@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Cell from './Cell';
 
-import { copyArray } from './helpers/copycat';
+import { copyArray, compareArray } from './helpers/copycat';
 
 import './App.css';
 
@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     grid: [],
     generation: 0,
+    generation_record: []
   }
 
   componentWillMount() {
@@ -68,6 +69,7 @@ class App extends Component {
   checkGrid = (grid) => {
     let { generation } = this.state;
     let future_grid = copyArray(grid);
+    let alive_pop = 0;
 
     grid.map((row, i) => {
       row.map((col, j) => {
@@ -81,21 +83,43 @@ class App extends Component {
         } else {
           future_grid[i][j] = false;
         }
+
+        grid[i][j] ? alive_pop += 1 : null;
       });
     });
 
+    // TODO: Compare that population has stabilized
+    // to use it as an exit condition
+    // const is_stable = this.compareGenerations(grid);
+
     generation += 1;
+
     this.setState({
       generation,
       grid: future_grid
     });
 
-    // TODO: Set exit condition for no alive population
-    if (generation < 50) {
+    // TODO: Set exit condition for stable population
+    if (generation < 50 && alive_pop) {
       setTimeout(() => {
         this.checkGrid(future_grid)
       }, 1000);
     }
+  }
+
+  compareGenerations = (grid) => {
+    let { generation_record } = this.state;
+    if (generation_record.length >= 5) {
+      generation_record.shift()
+    }
+
+    generation_record.push(grid);
+    this.setState({ generation_record });
+
+    if (generation_record.length > 1) {
+      return compareArray(generation_record[0], generation_record[generation_record.length])
+    }
+    return false;
   }
 
   checkNeighbors = (grid, i, j) => {
