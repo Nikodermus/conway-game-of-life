@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 import Cell from './Cell';
+
+import { copyArray } from './helpers/copycat';
+
 import './App.css';
 
 class App extends Component {
@@ -26,25 +29,21 @@ class App extends Component {
     }
 
     // Add initial true cells
-    this.setInitial();
-
-    // After a couple seconds, start evolving
-    setTimeout(() => {
-      this.checkGrid()
-    }, 1000);
+    this.setInitial(grid);
   }
 
-  setInitial = () => {
-    let { grid } = this.state;
-
+  setInitial = (grid) => {
     grid[0][0] = true;
     grid[0][1] = true;
     grid[1][0] = true;
     grid[1][3] = true;
+    grid[1][3] = true;
     grid[2][1] = true;
     grid[2][2] = true;
 
-    this.setState({ grid });
+    setTimeout(() => {
+      this.checkGrid(grid);
+    }, 1000);
   }
 
   renderGrid = () => {
@@ -63,12 +62,16 @@ class App extends Component {
     });
   }
 
-  checkGrid = () => {
-    let { grid, generation } = this.state;
-    let future_grid = [...grid];
+  componentDidMount() {
+  }
+
+  checkGrid = (grid) => {
+    let { generation } = this.state;
+    let future_grid = copyArray(grid);
+
     grid.map((row, i) => {
       row.map((col, j) => {
-        let { alive_n } = this.checkNeighbors(i, j);
+        let { alive_n } = this.checkNeighbors(grid, i, j);
 
         if (
           alive_n === 3 ||
@@ -82,7 +85,6 @@ class App extends Component {
     });
 
     generation += 1;
-
     this.setState({
       generation,
       grid: future_grid
@@ -91,13 +93,12 @@ class App extends Component {
     // TODO: Set exit condition for no alive population
     if (generation < 50) {
       setTimeout(() => {
-        this.checkGrid()
+        this.checkGrid(future_grid)
       }, 1000);
     }
   }
 
-  checkNeighbors = (i, j) => {
-    let { grid } = this.state;
+  checkNeighbors = (grid, i, j) => {
     let alive_n = 0;
     let dead_n = 0;
 
