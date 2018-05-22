@@ -13,7 +13,6 @@ beforeEach(function () {
 
 it('Prop change, changes cell', function () {
   expect(component.props.alive).toBe(true);
-
   ReactDOM.render(<Cell alive={false} />, node);
   expect(component.props.alive).toBe(false);
   expect(ReactDOM.findDOMNode(component).className).toEqual('cell  ');

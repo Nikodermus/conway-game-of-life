@@ -8,164 +8,10 @@ exports[`Compose Grid 1`] = `
     className="row"
   >
     <div
-      className="cell  "
+      className="cell  cell--alive"
     />
     <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
-    />
-  </div>
-  <div
-    className="row"
-  >
-    <div
-      className="cell  "
-    />
-    <div
-      className="cell  "
+      className="cell  cell--alive"
     />
     <div
       className="cell  "
@@ -316,6 +162,21 @@ exports[`Compose Grid 1`] = `
     className="row"
   >
     <div
+      className="cell  cell--alive"
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  cell--alive"
+    />
+    <div
+      className="cell  "
+    />
+    <div
       className="cell  "
     />
     <div
@@ -323,6 +184,145 @@ exports[`Compose Grid 1`] = `
     />
     <div
       className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  "
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="cell  "
+    />
+    <div
+      className="cell  cell--alive"
+    />
+    <div
+      className="cell  cell--alive"
     />
     <div
       className="cell  "
